@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coming Soon</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #121220;
+    color: #8ec8a0;
+    font-family: 'Press Start 2P', monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+    image-rendering: pixelated;
+  }
+
+  .parallax-layer {
+    position: fixed;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    will-change: transform;
+  }
+
+  .container {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 3rem 3.5rem;
+    border: 3px solid rgba(142, 200, 160, 0.4);
+    background: rgba(18, 18, 32, 0.88);
+    box-shadow:
+      0 0 0 3px #121220,
+      0 0 0 6px rgba(142, 200, 160, 0.25),
+      0 0 60px rgba(142, 200, 160, 0.08);
+  }
+
+  h1 {
+    font-size: clamp(1.2rem, 4vw, 2.2rem);
+    margin-bottom: 0.6rem;
+    color: #b8d8c8;
+    letter-spacing: 0.1em;
+    animation: glow 4s ease-in-out infinite;
+  }
+
+  .tagline {
+    font-size: clamp(0.35rem, 1vw, 0.55rem);
+    color: #4e6058;
+    margin-bottom: 1.8rem;
+    letter-spacing: 0.3em;
+  }
+
+  .subtitle {
+    font-size: clamp(0.45rem, 1.3vw, 0.7rem);
+    color: #7a8b9a;
+    margin-bottom: 1.8rem;
+    line-height: 2.2;
+    letter-spacing: 0.15em;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 0.6em;
+    height: 1em;
+    background: #8ec8a0;
+    vertical-align: text-bottom;
+    animation: blink 1.2s step-end infinite;
+  }
+
+  .divider {
+    width: 80%;
+    margin: 0 auto 1.8rem;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(142, 200, 160, 0.3), transparent);
+  }
+
+  .description {
+    font-size: clamp(0.35rem, 0.9vw, 0.55rem);
+    line-height: 2.4;
+    color: #6a7a88;
+    letter-spacing: 0.05em;
+    margin-bottom: 2rem;
+  }
+
+  .icons-row {
+    display: flex;
+    justify-content: center;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    margin-bottom: 2rem;
+  }
+
+  .icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .icon-box {
+    width: clamp(36px, 5vw, 52px);
+    height: clamp(36px, 5vw, 52px);
+    border: 2px solid rgba(142, 200, 160, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(142, 200, 160, 0.04);
+    transition: border-color 0.6s, background 0.6s;
+  }
+
+  .icon-box:hover {
+    border-color: rgba(142, 200, 160, 0.45);
+    background: rgba(142, 200, 160, 0.08);
+  }
+
+  .icon-pixel {
+    display: block;
+    width: clamp(14px, 2vw, 20px);
+    height: clamp(14px, 2vw, 20px);
+  }
+
+  .icon-label {
+    font-size: clamp(0.28rem, 0.65vw, 0.42rem);
+    color: #4e6058;
+    letter-spacing: 0.15em;
+  }
+
+  .divider-small {
+    width: 40%;
+    margin: 0 auto 1.5rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(142, 200, 160, 0.15), transparent);
+  }
+
+  .footer-text {
+    font-size: clamp(0.25rem, 0.6vw, 0.38rem);
+    color: #3a4a52;
+    letter-spacing: 0.2em;
+    line-height: 2.5;
+  }
+
+  .progress-bar {
+    width: 60%;
+    margin: 0 auto 1.8rem;
+    height: 6px;
+    background: rgba(142, 200, 160, 0.08);
+    border: 1px solid rgba(142, 200, 160, 0.15);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 65%;
+    background: linear-gradient(90deg, rgba(142, 200, 160, 0.25), rgba(142, 200, 160, 0.5));
+    animation: progress-pulse 3s ease-in-out infinite;
+  }
+
+  .progress-label {
+    font-size: clamp(0.25rem, 0.55vw, 0.35rem);
+    color: #4e6058;
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.2em;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @keyframes glow {
+    0%, 100% { text-shadow: 0 0 20px rgba(142, 200, 160, 0.15); }
+    50% { text-shadow: 0 0 30px rgba(142, 200, 160, 0.3); }
+  }
+
+  @keyframes progress-pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<canvas class="parallax-layer" id="layer-far"></canvas>
+<canvas class="parallax-layer" id="layer-mid"></canvas>
+<canvas class="parallax-layer" id="layer-near"></canvas>
+
+<div class="container" id="content">
+  <h1>COMING SOON<span class="cursor"></span></h1>
+  <p class="tagline">- - -  PIXEL BY PIXEL  - - -</p>
+  <p class="subtitle">SOMETHING IS BEING CRAFTED</p>
+  <div class="divider"></div>
+  <p class="description">
+    We are building something<br>
+    worth the wait.
+  </p>
+
+  <div class="icons-row">
+    <div class="icon-item">
+      <div class="icon-box">
+        <svg class="icon-pixel" viewBox="0 0 16 16" fill="none">
+          <rect x="3" y="12" width="10" height="2" fill="#6a8a7a"/>
+          <rect x="5" y="10" width="6" height="2" fill="#6a8a7a"/>
+          <rect x="4" y="6" width="8" height="4" fill="#5b7a6a"/>
+          <rect x="6" y="4" width="4" height="2" fill="#5b7a6a"/>
+          <rect x="7" y="2" width="2" height="2" fill="#4e6a5a"/>
+        </svg>
+      </div>
+      <span class="icon-label">DESIGN</span>
+    </div>
+    <div class="icon-item">
+      <div class="icon-box">
+        <svg class="icon-pixel" viewBox="0 0 16 16" fill="none">
+          <rect x="4" y="2" width="8" height="2" fill="#5b7a6a"/>
+          <rect x="4" y="4" width="2" height="8" fill="#5b7a6a"/>
+          <rect x="10" y="4" width="2" height="8" fill="#5b7a6a"/>
+          <rect x="4" y="12" width="8" height="2" fill="#6a8a7a"/>
+          <rect x="6" y="7" width="4" height="2" fill="#4e6a5a"/>
+        </svg>
+      </div>
+      <span class="icon-label">BUILD</span>
+    </div>
+    <div class="icon-item">
+      <div class="icon-box">
+        <svg class="icon-pixel" viewBox="0 0 16 16" fill="none">
+          <rect x="7" y="2" width="2" height="2" fill="#4e6a5a"/>
+          <rect x="5" y="4" width="6" height="2" fill="#5b7a6a"/>
+          <rect x="3" y="6" width="10" height="2" fill="#5b7a6a"/>
+          <rect x="5" y="8" width="6" height="2" fill="#6a8a7a"/>
+          <rect x="7" y="10" width="2" height="4" fill="#6a8a7a"/>
+        </svg>
+      </div>
+      <span class="icon-label">LAUNCH</span>
+    </div>
+  </div>
+
+  <div class="progress-label">PROGRESS</div>
+  <div class="progress-bar">
+    <div class="progress-fill"></div>
+  </div>
+
+  <div class="divider-small"></div>
+  <p class="footer-text">
+    STAY TUNED FOR UPDATES<br>
+    GOOD THINGS TAKE TIME
+  </p>
+</div>
+
+<script>
+// --- Mouse tracking with smooth interpolation ---
+let mouseX = 0.5, mouseY = 0.5;
+let smoothX = 0.5, smoothY = 0.5;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX / innerWidth;
+  mouseY = e.clientY / innerHeight;
+});
+
+// --- Parallax layers setup ---
+const layers = [
+  { id: 'layer-far',  depth: 0.02, particles: [], count: 50, baseSize: 4,  baseAlpha: 0.2,  drift: 0.06 },
+  { id: 'layer-mid',  depth: 0.05, particles: [], count: 35, baseSize: 6,  baseAlpha: 0.3,  drift: 0.12 },
+  { id: 'layer-near', depth: 0.10, particles: [], count: 20, baseSize: 10, baseAlpha: 0.45, drift: 0.2  },
+];
+
+const palette = [
+  '#5b7a6a', // muted sage
+  '#4a6878', // dusty blue
+  '#6a6a8a', // soft lavender
+  '#7a8a6a', // olive
+  '#5a7a7a', // teal
+  '#8a7a6a', // warm taupe
+];
+
+// Pixel shape types for variety
+const shapes = ['square', 'cross', 'diamond', 'dot'];
+
+function initLayer(layer) {
+  const canvas = document.getElementById(layer.id);
+  const ctx = canvas.getContext('2d');
+  layer.canvas = canvas;
+  layer.ctx = ctx;
+
+  for (let i = 0; i < layer.count; i++) {
+    layer.particles.push({
+      x: Math.random() * 2000,
+      y: Math.random() * 2000,
+      driftY: layer.drift * (0.3 + Math.random() * 0.7),
+      driftX: (Math.random() - 0.5) * 0.04,
+      color: palette[Math.floor(Math.random() * palette.length)],
+      size: layer.baseSize * (0.6 + Math.random() * 0.8),
+      alpha: layer.baseAlpha * (0.5 + Math.random() * 0.5),
+      pulse: Math.random() * Math.PI * 2,
+      pulseSpeed: 0.003 + Math.random() * 0.008,
+      shape: shapes[Math.floor(Math.random() * shapes.length)],
+    });
+  }
+}
+
+function resizeLayer(layer) {
+  layer.canvas.width = innerWidth * 1.2;
+  layer.canvas.height = innerHeight * 1.2;
+  for (const p of layer.particles) {
+    p.x = Math.random() * layer.canvas.width;
+    p.y = Math.random() * layer.canvas.height;
+  }
+}
+
+function drawPixelShape(ctx, shape, x, y, size) {
+  const s = Math.round(size);
+  const half = Math.round(s / 2);
+  switch (shape) {
+    case 'square':
+      ctx.fillRect(x, y, s, s);
+      break;
+    case 'cross':
+      ctx.fillRect(x + half - 1, y, 2, s);
+      ctx.fillRect(x, y + half - 1, s, 2);
+      break;
+    case 'diamond':
+      ctx.fillRect(x + half - 1, y, 2, 2);
+      ctx.fillRect(x, y + half - 1, 2, 2);
+      ctx.fillRect(x + s - 2, y + half - 1, 2, 2);
+      ctx.fillRect(x + half - 1, y + s - 2, 2, 2);
+      ctx.fillRect(x + half - 2, y + half - 2, s - half + 2, s - half + 2);
+      break;
+    case 'dot':
+      ctx.fillRect(x + half - 1, y + half - 1, 2, 2);
+      break;
+  }
+}
+
+layers.forEach(initLayer);
+layers.forEach(resizeLayer);
+
+addEventListener('resize', () => layers.forEach(resizeLayer));
+
+const content = document.getElementById('content');
+
+function animate() {
+  smoothX += (mouseX - smoothX) * 0.035;
+  smoothY += (mouseY - smoothY) * 0.035;
+
+  const cx = (smoothX - 0.5) * 2;
+  const cy = (smoothY - 0.5) * 2;
+
+  for (const layer of layers) {
+    const { canvas, ctx, particles, depth } = layer;
+
+    const offsetX = cx * depth * innerWidth;
+    const offsetY = cy * depth * innerHeight;
+    canvas.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (const p of particles) {
+      p.y += p.driftY;
+      p.x += p.driftX;
+      if (p.y > canvas.height + p.size) {
+        p.y = -p.size;
+        p.x = Math.random() * canvas.width;
+      }
+      if (p.x > canvas.width + p.size) p.x = -p.size;
+      if (p.x < -p.size) p.x = canvas.width + p.size;
+
+      p.pulse += p.pulseSpeed;
+      const alpha = p.alpha * (0.6 + 0.4 * Math.sin(p.pulse));
+
+      const px = Math.round(p.x / p.size) * p.size;
+      const py = Math.round(p.y / p.size) * p.size;
+
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = p.color;
+      drawPixelShape(ctx, p.shape, px, py, p.size);
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  const contentOffsetX = cx * -0.025 * innerWidth;
+  const contentOffsetY = cy * -0.025 * innerHeight;
+  content.style.transform = `translate(${contentOffsetX}px, ${contentOffsetY}px)`;
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+</body>
+</html>
