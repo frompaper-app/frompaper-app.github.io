@@ -1,399 +1,493 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coming Soon</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --bg: #000000;
+    --card-bg: rgba(28, 28, 30, 0.72);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(235, 235, 245, 0.6);
+    --text-tertiary: rgba(235, 235, 245, 0.3);
+    --separator: rgba(84, 84, 88, 0.36);
+    --fill: rgba(120, 120, 128, 0.2);
+    --accent: #0a84ff;
+    --accent-soft: rgba(10, 132, 255, 0.15);
+    --toggle-bg: rgba(120, 120, 128, 0.32);
+    --toggle-knob: #ffffff;
+    --icon-bg: rgba(255, 255, 255, 0.07);
+    --blur: 60px;
+    --progress-track: rgba(120, 120, 128, 0.24);
+    --progress-fill: #0a84ff;
+  }
+
+  [data-theme="light"] {
+    --bg: #f2f2f7;
+    --card-bg: rgba(255, 255, 255, 0.72);
+    --card-border: rgba(0, 0, 0, 0.04);
+    --text-primary: #000000;
+    --text-secondary: rgba(60, 60, 67, 0.6);
+    --text-tertiary: rgba(60, 60, 67, 0.3);
+    --separator: rgba(60, 60, 67, 0.12);
+    --fill: rgba(120, 120, 128, 0.12);
+    --accent: #007aff;
+    --accent-soft: rgba(0, 122, 255, 0.1);
+    --toggle-bg: rgba(120, 120, 128, 0.32);
+    --icon-bg: rgba(0, 0, 0, 0.04);
+    --progress-track: rgba(120, 120, 128, 0.16);
+    --progress-fill: #007aff;
+  }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background: #121220;
-    color: #8ec8a0;
-    font-family: 'Press Start 2P', monospace;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
     overflow: hidden;
-    image-rendering: pixelated;
+    background: var(--bg);
+    color: var(--text-primary);
+    transition: background 0.5s ease;
+    -webkit-font-smoothing: antialiased;
   }
 
-  .parallax-layer {
+  /* --- Vibrant animated background --- */
+  .bg-canvas {
     position: fixed;
-    top: -10%;
-    left: -10%;
-    width: 120%;
-    height: 120%;
-    will-change: transform;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
   }
 
-  .container {
+  .bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.6;
+    will-change: transform;
+    transition: opacity 0.6s ease;
+  }
+
+  [data-theme="light"] .bg-orb { opacity: 0.45; }
+
+  .orb-1 {
+    width: 55vmax;
+    height: 55vmax;
+    background: radial-gradient(circle, #a855f7, #7c3aed, #4f46e5);
+    top: -15%;
+    left: -10%;
+    animation: float1 18s ease-in-out infinite;
+  }
+  .orb-2 {
+    width: 45vmax;
+    height: 45vmax;
+    background: radial-gradient(circle, #06b6d4, #0ea5e9, #3b82f6);
+    bottom: -20%;
+    right: -10%;
+    animation: float2 22s ease-in-out infinite;
+  }
+  .orb-3 {
+    width: 35vmax;
+    height: 35vmax;
+    background: radial-gradient(circle, #f97316, #ef4444, #ec4899);
+    top: 40%;
+    left: 50%;
+    animation: float3 20s ease-in-out infinite;
+  }
+  .orb-4 {
+    width: 30vmax;
+    height: 30vmax;
+    background: radial-gradient(circle, #10b981, #14b8a6, #06b6d4);
+    bottom: 10%;
+    left: -5%;
+    animation: float4 24s ease-in-out infinite;
+  }
+
+  @keyframes float1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(8vw, 12vh) scale(1.1); }
+    66% { transform: translate(-5vw, 5vh) scale(0.95); }
+  }
+  @keyframes float2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-10vw, -8vh) scale(1.05); }
+    66% { transform: translate(6vw, -12vh) scale(0.9); }
+  }
+  @keyframes float3 {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    33% { transform: translate(-40%, -60%) scale(1.15); }
+    66% { transform: translate(-60%, -40%) scale(0.85); }
+  }
+  @keyframes float4 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(12vw, -6vh) scale(1.1); }
+  }
+
+  /* --- Card --- */
+  .card {
     position: relative;
     z-index: 10;
-    text-align: center;
-    padding: 3rem 3.5rem;
-    border: 3px solid rgba(142, 200, 160, 0.4);
-    background: rgba(18, 18, 32, 0.88);
+    width: min(420px, 90vw);
+    padding: 2.5rem 2rem 2rem;
+    border-radius: 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(var(--blur)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--blur)) saturate(180%);
     box-shadow:
-      0 0 0 3px #121220,
-      0 0 0 6px rgba(142, 200, 160, 0.25),
-      0 0 60px rgba(142, 200, 160, 0.08);
+      0 8px 32px rgba(0, 0, 0, 0.12),
+      0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: background 0.5s, border-color 0.5s, box-shadow 0.5s;
   }
 
-  h1 {
-    font-size: clamp(1.2rem, 4vw, 2.2rem);
-    margin-bottom: 0.6rem;
-    color: #b8d8c8;
-    letter-spacing: 0.1em;
-    animation: glow 4s ease-in-out infinite;
-  }
-
-  .tagline {
-    font-size: clamp(0.35rem, 1vw, 0.55rem);
-    color: #4e6058;
-    margin-bottom: 1.8rem;
-    letter-spacing: 0.3em;
-  }
-
-  .subtitle {
-    font-size: clamp(0.45rem, 1.3vw, 0.7rem);
-    color: #7a8b9a;
-    margin-bottom: 1.8rem;
-    line-height: 2.2;
-    letter-spacing: 0.15em;
-  }
-
-  .cursor {
-    display: inline-block;
-    width: 0.6em;
-    height: 1em;
-    background: #8ec8a0;
-    vertical-align: text-bottom;
-    animation: blink 1.2s step-end infinite;
-  }
-
-  .divider {
-    width: 80%;
-    margin: 0 auto 1.8rem;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(142, 200, 160, 0.3), transparent);
-  }
-
-  .description {
-    font-size: clamp(0.35rem, 0.9vw, 0.55rem);
-    line-height: 2.4;
-    color: #6a7a88;
-    letter-spacing: 0.05em;
-    margin-bottom: 2rem;
-  }
-
-  .icons-row {
-    display: flex;
-    justify-content: center;
-    gap: clamp(1.5rem, 4vw, 3rem);
-    margin-bottom: 2rem;
-  }
-
-  .icon-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.8rem;
-  }
-
-  .icon-box {
-    width: clamp(36px, 5vw, 52px);
-    height: clamp(36px, 5vw, 52px);
-    border: 2px solid rgba(142, 200, 160, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(142, 200, 160, 0.04);
-    transition: border-color 0.6s, background 0.6s;
-  }
-
-  .icon-box:hover {
-    border-color: rgba(142, 200, 160, 0.45);
-    background: rgba(142, 200, 160, 0.08);
-  }
-
-  .icon-pixel {
-    display: block;
-    width: clamp(14px, 2vw, 20px);
-    height: clamp(14px, 2vw, 20px);
-  }
-
-  .icon-label {
-    font-size: clamp(0.28rem, 0.65vw, 0.42rem);
-    color: #4e6058;
-    letter-spacing: 0.15em;
-  }
-
-  .divider-small {
-    width: 40%;
-    margin: 0 auto 1.5rem;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(142, 200, 160, 0.15), transparent);
-  }
-
-  .footer-text {
-    font-size: clamp(0.25rem, 0.6vw, 0.38rem);
-    color: #3a4a52;
-    letter-spacing: 0.2em;
-    line-height: 2.5;
-  }
-
-  .progress-bar {
-    width: 60%;
-    margin: 0 auto 1.8rem;
-    height: 6px;
-    background: rgba(142, 200, 160, 0.08);
-    border: 1px solid rgba(142, 200, 160, 0.15);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .progress-fill {
+  /* --- Theme toggle --- */
+  .theme-toggle {
     position: absolute;
-    left: 0;
-    top: 0;
+    top: 1.25rem;
+    right: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .toggle-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .toggle-track {
+    width: 44px;
+    height: 26px;
+    border-radius: 13px;
+    background: var(--toggle-bg);
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .toggle-track::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--toggle-knob);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  [data-theme="light"] .toggle-track {
+    background: #34c759;
+  }
+
+  [data-theme="light"] .toggle-track::after {
+    transform: translateX(18px);
+  }
+
+  .toggle-icons {
+    display: flex;
+    position: absolute;
+    width: 100%;
     height: 100%;
-    width: 65%;
-    background: linear-gradient(90deg, rgba(142, 200, 160, 0.25), rgba(142, 200, 160, 0.5));
-    animation: progress-pulse 3s ease-in-out infinite;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px;
+    pointer-events: none;
+  }
+
+  .toggle-icon {
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  /* --- Content --- */
+  .header {
+    text-align: center;
+    margin-bottom: 1.75rem;
+  }
+
+  .header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .header p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  .sep {
+    height: 1px;
+    background: var(--separator);
+    margin: 0 -0.25rem 1.5rem;
+  }
+
+  /* --- Features row --- */
+  .features {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .feature {
+    flex: 1;
+    text-align: center;
+    padding: 1rem 0.5rem;
+    border-radius: 16px;
+    background: var(--icon-bg);
+    border: 1px solid var(--card-border);
+    transition: background 0.3s, transform 0.25s;
+  }
+
+  .feature:hover {
+    transform: scale(1.04);
+  }
+
+  .feature-icon {
+    width: 36px;
+    height: 36px;
+    margin: 0 auto 0.6rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+  }
+
+  .feature-icon.design { background: linear-gradient(135deg, #a855f7, #7c3aed); }
+  .feature-icon.build  { background: linear-gradient(135deg, #3b82f6, #0ea5e9); }
+  .feature-icon.launch { background: linear-gradient(135deg, #f97316, #ef4444); }
+
+  .feature-title {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+    transition: color 0.3s;
+  }
+
+  .feature-desc {
+    font-size: 0.58rem;
+    color: var(--text-tertiary);
+    line-height: 1.4;
+    transition: color 0.3s;
+  }
+
+  /* --- Progress --- */
+  .progress-section {
+    margin-bottom: 1.75rem;
+  }
+
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
   }
 
   .progress-label {
-    font-size: clamp(0.25rem, 0.55vw, 0.35rem);
-    color: #4e6058;
-    margin-bottom: 0.6rem;
-    letter-spacing: 0.2em;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: color 0.3s;
   }
 
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+  .progress-value {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent);
   }
 
-  @keyframes glow {
-    0%, 100% { text-shadow: 0 0 20px rgba(142, 200, 160, 0.15); }
-    50% { text-shadow: 0 0 30px rgba(142, 200, 160, 0.3); }
+  .progress-track {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--progress-track);
+    overflow: hidden;
+    transition: background 0.3s;
   }
 
-  @keyframes progress-pulse {
-    0%, 100% { opacity: 0.7; }
-    50% { opacity: 1; }
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--progress-fill), #a855f7);
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* --- Footer --- */
+  .footer {
+    text-align: center;
+  }
+
+  .footer p {
+    font-size: 0.68rem;
+    color: var(--text-tertiary);
+    line-height: 1.7;
+    transition: color 0.3s;
+  }
+
+  .footer .dot {
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--text-tertiary);
+    vertical-align: middle;
+    margin: 0 0.6rem;
+    transition: background 0.3s;
   }
 </style>
 </head>
 <body>
 
-<canvas class="parallax-layer" id="layer-far"></canvas>
-<canvas class="parallax-layer" id="layer-mid"></canvas>
-<canvas class="parallax-layer" id="layer-near"></canvas>
+<div class="bg-canvas" id="bgCanvas">
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+  <div class="bg-orb orb-4"></div>
+</div>
 
-<div class="container" id="content">
-  <h1>COMING SOON<span class="cursor"></span></h1>
-  <p class="tagline">- - -  PIXEL BY PIXEL  - - -</p>
-  <p class="subtitle">SOMETHING IS BEING CRAFTED</p>
-  <div class="divider"></div>
-  <p class="description">
-    We are building something<br>
-    worth the wait.
-  </p>
+<div class="card" id="card">
 
-  <div class="icons-row">
-    <div class="icon-item">
-      <div class="icon-box">
-        <svg class="icon-pixel" viewBox="0 0 16 16" fill="none">
-          <rect x="3" y="12" width="10" height="2" fill="#6a8a7a"/>
-          <rect x="5" y="10" width="6" height="2" fill="#6a8a7a"/>
-          <rect x="4" y="6" width="8" height="4" fill="#5b7a6a"/>
-          <rect x="6" y="4" width="4" height="2" fill="#5b7a6a"/>
-          <rect x="7" y="2" width="2" height="2" fill="#4e6a5a"/>
-        </svg>
+  <div class="theme-toggle" id="themeToggle">
+    <div class="toggle-track">
+      <div class="toggle-icons">
+        <span class="toggle-icon">&#9789;</span>
+        <span class="toggle-icon">&#9788;</span>
       </div>
-      <span class="icon-label">DESIGN</span>
-    </div>
-    <div class="icon-item">
-      <div class="icon-box">
-        <svg class="icon-pixel" viewBox="0 0 16 16" fill="none">
-          <rect x="4" y="2" width="8" height="2" fill="#5b7a6a"/>
-          <rect x="4" y="4" width="2" height="8" fill="#5b7a6a"/>
-          <rect x="10" y="4" width="2" height="8" fill="#5b7a6a"/>
-          <rect x="4" y="12" width="8" height="2" fill="#6a8a7a"/>
-          <rect x="6" y="7" width="4" height="2" fill="#4e6a5a"/>
-        </svg>
-      </div>
-      <span class="icon-label">BUILD</span>
-    </div>
-    <div class="icon-item">
-      <div class="icon-box">
-        <svg class="icon-pixel" viewBox="0 0 16 16" fill="none">
-          <rect x="7" y="2" width="2" height="2" fill="#4e6a5a"/>
-          <rect x="5" y="4" width="6" height="2" fill="#5b7a6a"/>
-          <rect x="3" y="6" width="10" height="2" fill="#5b7a6a"/>
-          <rect x="5" y="8" width="6" height="2" fill="#6a8a7a"/>
-          <rect x="7" y="10" width="2" height="4" fill="#6a8a7a"/>
-        </svg>
-      </div>
-      <span class="icon-label">LAUNCH</span>
     </div>
   </div>
 
-  <div class="progress-label">PROGRESS</div>
-  <div class="progress-bar">
-    <div class="progress-fill"></div>
+  <div class="header">
+    <h1>Coming Soon</h1>
+    <p>Something new is being crafted.<br>We'll be ready before you know it.</p>
   </div>
 
-  <div class="divider-small"></div>
-  <p class="footer-text">
-    STAY TUNED FOR UPDATES<br>
-    GOOD THINGS TAKE TIME
-  </p>
+  <div class="sep"></div>
+
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon design">&#9998;</div>
+      <div class="feature-title">Design</div>
+      <div class="feature-desc">Thoughtful UI</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon build">&#9881;</div>
+      <div class="feature-title">Build</div>
+      <div class="feature-desc">Solid foundation</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon launch">&#9889;</div>
+      <div class="feature-title">Launch</div>
+      <div class="feature-desc">Almost there</div>
+    </div>
+  </div>
+
+  <div class="progress-section">
+    <div class="progress-header">
+      <span class="progress-label">Progress</span>
+      <span class="progress-value" id="progressValue">0%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <div class="footer">
+    <p>Stay tuned<span class="dot"></span>Good things take time</p>
+  </div>
+
 </div>
 
 <script>
-// --- Mouse tracking with smooth interpolation ---
-let mouseX = 0.5, mouseY = 0.5;
-let smoothX = 0.5, smoothY = 0.5;
+// --- Theme toggle ---
+const html = document.documentElement;
+const toggle = document.getElementById('themeToggle');
+const stored = localStorage.getItem('theme');
+if (stored) html.setAttribute('data-theme', stored);
 
-document.addEventListener('mousemove', (e) => {
-  mouseX = e.clientX / innerWidth;
-  mouseY = e.clientY / innerHeight;
+toggle.addEventListener('click', () => {
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
 });
 
-// --- Parallax layers setup ---
-const layers = [
-  { id: 'layer-far',  depth: 0.02, particles: [], count: 50, baseSize: 4,  baseAlpha: 0.2,  drift: 0.06 },
-  { id: 'layer-mid',  depth: 0.05, particles: [], count: 35, baseSize: 6,  baseAlpha: 0.3,  drift: 0.12 },
-  { id: 'layer-near', depth: 0.10, particles: [], count: 20, baseSize: 10, baseAlpha: 0.45, drift: 0.2  },
-];
+// --- Parallax orbs on mouse ---
+const orbs = document.querySelectorAll('.bg-orb');
+const card = document.getElementById('card');
+let mx = 0, my = 0, sx = 0, sy = 0;
 
-const palette = [
-  '#5b7a6a', // muted sage
-  '#4a6878', // dusty blue
-  '#6a6a8a', // soft lavender
-  '#7a8a6a', // olive
-  '#5a7a7a', // teal
-  '#8a7a6a', // warm taupe
-];
+document.addEventListener('mousemove', (e) => {
+  mx = (e.clientX / innerWidth - 0.5) * 2;
+  my = (e.clientY / innerHeight - 0.5) * 2;
+});
 
-// Pixel shape types for variety
-const shapes = ['square', 'cross', 'diamond', 'dot'];
+const depths = [0.03, 0.05, 0.07, 0.04];
 
-function initLayer(layer) {
-  const canvas = document.getElementById(layer.id);
-  const ctx = canvas.getContext('2d');
-  layer.canvas = canvas;
-  layer.ctx = ctx;
+function tick() {
+  sx += (mx - sx) * 0.03;
+  sy += (my - sy) * 0.03;
 
-  for (let i = 0; i < layer.count; i++) {
-    layer.particles.push({
-      x: Math.random() * 2000,
-      y: Math.random() * 2000,
-      driftY: layer.drift * (0.3 + Math.random() * 0.7),
-      driftX: (Math.random() - 0.5) * 0.04,
-      color: palette[Math.floor(Math.random() * palette.length)],
-      size: layer.baseSize * (0.6 + Math.random() * 0.8),
-      alpha: layer.baseAlpha * (0.5 + Math.random() * 0.5),
-      pulse: Math.random() * Math.PI * 2,
-      pulseSpeed: 0.003 + Math.random() * 0.008,
-      shape: shapes[Math.floor(Math.random() * shapes.length)],
-    });
-  }
+  orbs.forEach((orb, i) => {
+    const d = depths[i];
+    const ox = sx * d * innerWidth;
+    const oy = sy * d * innerHeight;
+    // Combine parallax with existing CSS animation by adding translate
+    orb.style.marginLeft = ox + 'px';
+    orb.style.marginTop = oy + 'px';
+  });
+
+  // Subtle card tilt
+  const rx = sy * 2;
+  const ry = sx * -2;
+  card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+
+  requestAnimationFrame(tick);
 }
+tick();
 
-function resizeLayer(layer) {
-  layer.canvas.width = innerWidth * 1.2;
-  layer.canvas.height = innerHeight * 1.2;
-  for (const p of layer.particles) {
-    p.x = Math.random() * layer.canvas.width;
-    p.y = Math.random() * layer.canvas.height;
-  }
-}
-
-function drawPixelShape(ctx, shape, x, y, size) {
-  const s = Math.round(size);
-  const half = Math.round(s / 2);
-  switch (shape) {
-    case 'square':
-      ctx.fillRect(x, y, s, s);
-      break;
-    case 'cross':
-      ctx.fillRect(x + half - 1, y, 2, s);
-      ctx.fillRect(x, y + half - 1, s, 2);
-      break;
-    case 'diamond':
-      ctx.fillRect(x + half - 1, y, 2, 2);
-      ctx.fillRect(x, y + half - 1, 2, 2);
-      ctx.fillRect(x + s - 2, y + half - 1, 2, 2);
-      ctx.fillRect(x + half - 1, y + s - 2, 2, 2);
-      ctx.fillRect(x + half - 2, y + half - 2, s - half + 2, s - half + 2);
-      break;
-    case 'dot':
-      ctx.fillRect(x + half - 1, y + half - 1, 2, 2);
-      break;
-  }
-}
-
-layers.forEach(initLayer);
-layers.forEach(resizeLayer);
-
-addEventListener('resize', () => layers.forEach(resizeLayer));
-
-const content = document.getElementById('content');
-
-function animate() {
-  smoothX += (mouseX - smoothX) * 0.035;
-  smoothY += (mouseY - smoothY) * 0.035;
-
-  const cx = (smoothX - 0.5) * 2;
-  const cy = (smoothY - 0.5) * 2;
-
-  for (const layer of layers) {
-    const { canvas, ctx, particles, depth } = layer;
-
-    const offsetX = cx * depth * innerWidth;
-    const offsetY = cy * depth * innerHeight;
-    canvas.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    for (const p of particles) {
-      p.y += p.driftY;
-      p.x += p.driftX;
-      if (p.y > canvas.height + p.size) {
-        p.y = -p.size;
-        p.x = Math.random() * canvas.width;
-      }
-      if (p.x > canvas.width + p.size) p.x = -p.size;
-      if (p.x < -p.size) p.x = canvas.width + p.size;
-
-      p.pulse += p.pulseSpeed;
-      const alpha = p.alpha * (0.6 + 0.4 * Math.sin(p.pulse));
-
-      const px = Math.round(p.x / p.size) * p.size;
-      const py = Math.round(p.y / p.size) * p.size;
-
-      ctx.globalAlpha = alpha;
-      ctx.fillStyle = p.color;
-      drawPixelShape(ctx, p.shape, px, py, p.size);
-    }
-    ctx.globalAlpha = 1;
-  }
-
-  const contentOffsetX = cx * -0.025 * innerWidth;
-  const contentOffsetY = cy * -0.025 * innerHeight;
-  content.style.transform = `translate(${contentOffsetX}px, ${contentOffsetY}px)`;
-
-  requestAnimationFrame(animate);
-}
-
-animate();
+// --- Animate progress bar on load ---
+requestAnimationFrame(() => {
+  setTimeout(() => {
+    const bar = document.getElementById('progressBar');
+    const val = document.getElementById('progressValue');
+    bar.style.width = '65%';
+    let current = 0;
+    const target = 65;
+    const step = () => {
+      current += 1;
+      if (current > target) return;
+      val.textContent = current + '%';
+      setTimeout(step, 1500 / target);
+    };
+    step();
+  }, 300);
+});
 </script>
 </body>
 </html>
