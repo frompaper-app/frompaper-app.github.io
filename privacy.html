@@ -77,26 +77,44 @@
   <div class="container">
     <h1 id="privacy-policy">Privacy Policy</h1>
 
-<p><strong>From Paper — Document Scanner &amp; PDF</strong>
-<em>Effective date: <a href="/legal/privacy/">June 23, 2026</a></em></p>
+<p><strong>From Paper — Document Scanner &amp; PDF</strong></p>
+
+<p><em>Effective date: <a href="/legal/privacy/">June 23, 2026</a></em></p>
 
 <h2 id="data-controller">Data Controller</h2>
 
 <p>From Paper is developed and published by <strong>Ivan Vasyliev</strong>, sole proprietorship (Jednoosobowa Działalność Gospodarcza) registered in Poland, NIP: 8992951256.</p>
 
-<p><strong>Email:</strong> privacy@frompaper.app</p>
+<p><strong>Email:</strong> <a href="mailto:privacy@frompaper.app">privacy@frompaper.app</a></p>
 
 <h2 id="overview">Overview</h2>
 
-<p>From Paper is a document scanning app built around privacy-by-design and data minimization, in accordance with Regulation (EU) 2016/679 (GDPR). Your documents never leave your device. The only data that leaves the App is <strong>anonymous, aggregated usage analytics</strong> — and only if you leave analytics enabled. This policy explains exactly what that means.</p>
+<p>From Paper is a document scanning app built around privacy-by-design and data minimization, in accordance with Regulation (EU) 2016/679 (GDPR). Your documents are stored on your device and, if you are signed in to iCloud, synced through <strong>your own private iCloud account</strong> so they are available across your Apple devices — they are never sent to us or to any server we operate, and we cannot access them. The only data that leaves the App and reaches us is <strong>anonymous, aggregated usage analytics</strong> — and only if you leave analytics enabled. This policy explains exactly what that means. As the App evolves, new features may involve processing or collecting additional data; whenever that is the case, we will update this policy to describe what is collected, why, and your choices, before or at the time the feature becomes available.</p>
 
-<h2 id="your-documents-stay-on-your-device">Your Documents Stay on Your Device</h2>
+<h2 id="your-documents-stay-yours">Your Documents Stay Yours</h2>
 
-<p>All scans, imported photos, generated PDFs, and settings are stored <strong>exclusively on your device</strong>. From Paper does <strong>not</strong> upload, transmit, back up, or have any access to your documents or their contents, filenames, or file paths. We use no cloud storage, remote servers, or external databases for your content. If you delete the App, all associated documents are removed from your device.</p>
+<p>All scans, imported photos, generated PDFs, and settings are stored on your device. If you are signed in to iCloud, From Paper also keeps them in sync through <strong>your own private iCloud account</strong> so they stay up to date across your Apple devices — see “iCloud Sync” below for exactly how this works.</p>
+
+<p>We (the developer) operate <strong>no</strong> cloud storage, remote servers, or external databases for your content, and we have <strong>no access</strong> to your documents or their contents, filenames, or file paths — whether on your device or in your iCloud. There is no copy of your documents on any system controlled by us. If you delete the App, the local copies are removed from your device; any content already synced to iCloud remains in your iCloud account until you remove it from within the App or through your iCloud settings.</p>
+
+<h2 id="icloud-sync">iCloud Sync</h2>
+
+<p>If you are signed in to iCloud on your device, From Paper uses Apple’s <strong>iCloud</strong> to keep your documents in sync across the Apple devices that use the same Apple ID. This is handled entirely by Apple’s frameworks:</p>
+
+<ul>
+  <li><strong>Document and page information</strong> (such as document names, dates, page order, and image-processing settings) is stored in From Paper’s <strong>private CloudKit database</strong> within your iCloud account.</li>
+  <li><strong>Your original page images</strong> are stored in From Paper’s <strong>private iCloud container</strong> (iCloud Drive storage dedicated to the App).</li>
+</ul>
+
+<p>In both cases the data lives in <strong>your own iCloud account</strong>, tied to your Apple ID, in storage that is private to you. <strong>We do not operate these servers, and we have no ability to access, read, or retrieve this content.</strong> From Paper has no backend of its own.</p>
+
+<p>This sync happens automatically when you are signed in to iCloud and iCloud Drive is enabled. If iCloud is unavailable or turned off, the App works normally and simply keeps everything local to your device. You manage iCloud for From Paper in the iOS <strong>Settings</strong> app (your Apple ID → iCloud), and the App shows the current sync status under <strong>Settings → iCloud Sync</strong>.</p>
+
+<p>Because this content is stored in your personal iCloud account, Apple processes it as part of iCloud. Apple’s handling of iCloud data is governed by <a href="https://www.apple.com/legal/privacy/">Apple’s Privacy Policy</a> and the <a href="https://www.apple.com/legal/internet-services/icloud/">iCloud Terms and Conditions</a>.</p>
 
 <h2 id="anonymous-usage-analytics">Anonymous Usage Analytics</h2>
 
-<p>To understand how the App is used and to improve it, From Paper sends <strong>anonymous, privacy-preserving usage analytics</strong> through <strong>TelemetryDeck</strong>, an EU-based, privacy-first analytics provider (TelemetryDeck GmbH, Germany; data stored in the EU).</p>
+<p>To understand how the App is used and to improve it, From Paper sends <strong>anonymous, privacy-preserving usage analytics</strong> through <strong>TelemetryDeck</strong>, an EU-based, privacy-first analytics provider (TelemetryDeck GmbH, Germany; data stored in the EU). This is the only data the App transmits to us, and it is entirely separate from the iCloud sync described above.</p>
 
 <p><strong>This is optional.</strong> You can turn it off at any time in <strong>Settings → Privacy → “Share Anonymous Usage Data.”</strong> It is enabled by default; when disabled, the analytics component is never started and nothing is transmitted.</p>
 
@@ -109,6 +127,8 @@
 </ul>
 
 <h3 id="what-is-never-sent">What is never sent</h3>
+
+<p>The anonymous analytics events never include:</p>
 
 <ul>
   <li>No names, email addresses, phone numbers, or other personal information</li>
@@ -127,11 +147,11 @@
 
 <h2 id="in-app-purchases">In-App Purchases</h2>
 
-<p>From Paper offers a one-time in-app purchase to unlock unlimited exports. <strong>Purchases are processed entirely by Apple through the App Store using Apple’s StoreKit.</strong> We do not operate any user accounts or payment servers, and we never receive your payment details. Your purchase entitlement is verified on-device against your Apple ID, and the number of free exports you have used is stored only on your device and never transmitted to us. Apple’s handling of purchase data is governed by <a href="https://www.apple.com/legal/privacy/">Apple’s Privacy Policy</a>.</p>
+<p>From Paper currently offers a one-time in-app purchase to unlock unlimited exports, and may offer additional paid features or purchase options in the future. <strong>All in-app purchases are processed entirely by Apple through the App Store using Apple’s StoreKit.</strong> We do not operate any user accounts or payment servers, and we never receive your payment details. Your purchase entitlements are verified on-device against your Apple ID, and any usage tied to entitlements (such as the number of free exports you have used) is stored only on your device and never transmitted to us. The unlock supports Apple Family Sharing; where you choose to share it, that sharing is handled entirely by Apple and brings us no additional data about you or your family members. Apple’s handling of purchase data is governed by <a href="https://www.apple.com/legal/privacy/">Apple’s Privacy Policy</a>.</p>
 
 <h2 id="device-permissions">Device Permissions</h2>
 
-<p>From Paper requests access to your device’s camera and photo library solely to scan and import documents. These permissions are managed by iOS and can be revoked at any time in your device’s Settings. All captured images and generated PDFs are stored locally on your device and are never uploaded to any server.</p>
+<p>From Paper requests access to your device’s camera and photo library solely to scan and import documents. These permissions are managed by iOS and can be revoked at any time in your device’s Settings. All captured images and generated PDFs are stored on your device and, if you use iCloud, synced through your own private iCloud account as described above; they are never uploaded to any server operated by us.</p>
 
 <h2 id="sharing">Sharing</h2>
 
@@ -139,11 +159,12 @@
 
 <h2 id="third-party-services">Third-Party Services</h2>
 
-<p>From Paper uses two third-party services, both described above:</p>
+<p>From Paper relies on the following third-party services, all described above:</p>
 
 <ul>
   <li><strong>TelemetryDeck</strong> (TelemetryDeck GmbH, Germany) — anonymous usage analytics, EU-hosted, opt-out available in Settings. See <a href="https://telemetrydeck.com/privacy/">TelemetryDeck’s privacy policy</a>.</li>
   <li><strong>Apple App Store / StoreKit</strong> — processing of the in-app purchase. See <a href="https://www.apple.com/legal/privacy/">Apple’s Privacy Policy</a>.</li>
+  <li><strong>Apple iCloud / CloudKit</strong> — optional cross-device sync of your documents through your own private iCloud account; used only when you are signed in to iCloud, and managed through your device’s iCloud settings. See <a href="https://www.apple.com/legal/privacy/">Apple’s Privacy Policy</a>.</li>
 </ul>
 
 <p>The App integrates no advertising networks and no other analytics or tracking SDKs.</p>
@@ -152,23 +173,27 @@
 
 <p>We retain anonymous analytics only in aggregate form for as long as it is useful for product improvement. As the data is anonymous, it cannot be linked back to you or individually deleted; you can stop all future collection at any time using the in-app toggle.</p>
 
+<p>Documents you sync to iCloud are retained in your own iCloud account under your control. You can delete them from within the App or manage them through your device’s iCloud settings at any time; we hold no separate copy and play no part in their retention.</p>
+
 <h2 id="childrens-privacy">Children’s Privacy</h2>
 
 <p>From Paper does not knowingly collect personal data from anyone, including children. The anonymous analytics described above contain no personal information. The App complies with applicable child-protection regulations, including COPPA (US) and GDPR Article 8 (EU).</p>
 
 <h2 id="your-rights">Your Rights</h2>
 
-<p>Under the GDPR you have rights of access, rectification, erasure, restriction, objection, and data portability. Because From Paper holds no personal data that identifies you — your documents stay on your device and analytics are anonymous — there is generally no personal data on which to act. You can object to analytics processing at any time simply by switching off “Share Anonymous Usage Data” in Settings. If you have any concern, contact us at the email below, and you may also lodge a complaint with your local supervisory authority (in Poland, the President of the Personal Data Protection Office, UODO).</p>
+<p>Under the GDPR you have rights of access, rectification, erasure, restriction, objection, and data portability. Because From Paper holds no personal data that identifies you — your documents stay on your device or in your own private iCloud account, which we cannot access, and analytics are anonymous — there is generally no personal data on which to act. You can object to analytics processing at any time simply by switching off “Share Anonymous Usage Data” in Settings. If you have any concern, contact us at the email below, and you may also lodge a complaint with your local supervisory authority (in Poland, the President of the Personal Data Protection Office, UODO).</p>
 
 <h2 id="changes-to-this-policy">Changes to This Policy</h2>
 
-<p>If we update this privacy policy, the revised version will be posted here with an updated date. Material changes affecting how data is handled will be reflected here.</p>
+<p>We reserve the right to update or modify this privacy policy at any time — for example, to reflect new features, additional in-app purchases, changes in the data we process, new third-party processors, or changes in applicable law. When we do, the revised version will be posted here with a new effective date, and earlier versions remain archived for reference.</p>
+
+<p>If a new feature involves collecting or processing data in a way not already described here, we will update this policy to explain it before or at the time that feature becomes available, and, where the law requires it, we will seek your consent or provide additional notice. Your continued use of the App after an update takes effect constitutes acceptance of the revised policy, except where your consent is legally required.</p>
 
 <h2 id="contact">Contact</h2>
 
 <p>If you have questions about this privacy policy, please contact us at:</p>
 
-<p><strong>Email:</strong> privacy@frompaper.app</p>
+<p><strong>Email:</strong> <a href="mailto:privacy@frompaper.app">privacy@frompaper.app</a></p>
 
   </div>
 </section>
